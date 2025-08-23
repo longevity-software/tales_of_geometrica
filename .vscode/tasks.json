@@ -1,0 +1,58 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build EXE",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-o",
+                "tales_of_geometrica.exe",
+                "./*.cpp",
+                "-luser32",
+                "-lgdi32",
+                "-lopengl32",
+                "-lgdiplus",
+                "-lShlwapi",
+                "-ldwmapi",
+                "-lstdc++fs",
+                "-static",
+                "-std=c++17"
+            ],
+            "options": {
+                "shell": {
+                    "executable": "C:/msys64/mingw64.exe"
+                }
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run EXE",
+            "type": "shell",
+            "command": "./tales_of_geometrica.exe",
+            "problemMatcher": []
+        },
+        {
+            "label": "Build WASM",
+            "type": "shell",
+            "command": "tools/wasm/pge2wasm.bat",
+            "args": [
+                "build"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Run WASM",
+            "type": "shell",
+            "command": "tools/wasm/pge2wasm.bat",
+            "args": [
+                "run"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}
