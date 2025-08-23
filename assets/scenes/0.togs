@@ -1,4 +1,12 @@
-{
-    "action": "background"
-    "image": "winding_road"
-}
+[
+    {
+        "action": "background",
+        "image": "winding_road"
+    },
+    {
+        "action": "dialog",
+        "speaker": "Mathilda",
+        "location": "left",
+        "text": "This is a test"
+    }
+]

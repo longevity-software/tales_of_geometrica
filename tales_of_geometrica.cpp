@@ -6,12 +6,16 @@
 #include "extensions/olcPGEX_QuickGUI.h"
 
 #include <string>
+#include <fstream>
+#include <iterator>
 #include <map>
 #include <deque>
 #include <memory>
 
 #include "scene_action_interface.h"
 #include "scene_action_set_background.h"
+
+#include "json.h"
 
 class TalesOfGeometrica : public olc::PixelGameEngine
 {
@@ -28,7 +32,9 @@ protected:
 	const float dialogBoxPadding = 5;
 	const float dialogBoxHeightPercent = 30;
 
-	std::deque<std::unique_ptr<SceneActionInterface>> _scene_actions;
+	std::map<int, std::deque<std::unique_ptr<SceneActionInterface>>> _scenes;
+
+	int _current_scene_index;
 
 public:
 	const int32_t windowWidth = 240;
@@ -61,30 +67,70 @@ public:
 		// guiLabel->bVisible = false;
 		guiLabel->bHasBackground = true;
 
-		guiLabel->sText = "This is a test(icle)";
+		int scene_index = 0;
+		bool scene_found = true;
 
-		_scene_actions.push_back(std::make_unique<SceneActionSetBackground>(&_backgrounds["winding_road"]));
+		do
+		{
+			std::ifstream f("./assets/scenes/" + std::to_string(scene_index) + ".togs");
+
+			scene_found = f.good();
+
+			if (scene_found)
+			{
+				_scenes[scene_index] = std::deque<std::unique_ptr<SceneActionInterface>>();
+
+				std::string content((std::istreambuf_iterator<char>(f)),
+				std::istreambuf_iterator<char>());
+
+				json::jobject result = json::jobject::parse(content);
+
+				for (int i = 0; i < result.size(); ++i)
+				{
+					std::string action = result.array(i).get("action").as_string();
+
+					if ("background" == action)
+					{
+						std::string background_image = result.array(i).get("image").as_string();
+
+						_scenes[i].push_back(std::make_unique<SceneActionSetBackground>(&_backgrounds[background_image]));
+					}
+				}
+
+				scene_index++;
+			}
+			
+		}while(scene_found);
+
+		_current_scene_index = 0;
+
+		guiLabel->sText = "This is a test.";
 
 		return true;
 	}
 
 	bool OnUserUpdate(float fElapsedTime) override
 	{
-	// 	guiManager.Update(this);
+		guiManager.Update(this);
 
         Clear(olc::BLACK);
-        
-		if (!_scene_actions.empty())
+
+		if (!_scenes[_current_scene_index].empty())
 		{
-			if (_scene_actions.front()->PerformAction(this))
-			{
-				_scene_actions.pop_front();
-			}
+			_scenes[_current_scene_index].front()->PerformAction(this);
 		}
+        
+		// if (!_scene_actions.empty())
+		// {
+		// 	if (_scene_actions.front()->PerformAction(this))
+		// 	{
+		// 		_scene_actions.pop_front();
+		// 	}
+		// }
 
         // DrawDecal(GetMousePos(), _mathildaDialogueSprite.Decal());
 
-		// guiManager.DrawDecal(this);
+		guiManager.DrawDecal(this);
 
 		return true;
 	}
