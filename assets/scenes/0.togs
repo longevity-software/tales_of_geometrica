@@ -7,6 +7,6 @@
         "action": "dialog",
         "speaker": "Mathilda",
         "location": "left",
-        "text": "This is a test"
+        "text": "This is a something\nthat Mathilda said"
     }
 ]

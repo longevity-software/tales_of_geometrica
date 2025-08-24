@@ -7,6 +7,7 @@ class SceneActionInterface {
 
 public:
     virtual bool PerformAction(olc::PixelGameEngine* pge) = 0;
+    virtual void ResetAction() = 0;
 };
 
 #endif // _SCENE_ACTION_INTERFACE_H

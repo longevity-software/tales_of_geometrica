@@ -9,11 +9,12 @@
 #include <fstream>
 #include <iterator>
 #include <map>
-#include <deque>
+#include <vector>
 #include <memory>
 
+#include "scene.h"
 #include "scene_action_interface.h"
-#include "scene_action_set_background.h"
+#include "scene_action_dialog.h"
 
 #include "json.h"
 
@@ -27,12 +28,10 @@ protected:
 
 	// UI Components
 	olc::QuickGUI::Manager guiManager;
-	olc::QuickGUI::Label* guiLabel = nullptr;
+	olc::QuickGUI::Label* textLabel = nullptr;
+	olc::QuickGUI::Label* speakerLabel = nullptr;
 
-	const float dialogBoxPadding = 5;
-	const float dialogBoxHeightPercent = 30;
-
-	std::map<int, std::deque<std::unique_ptr<SceneActionInterface>>> _scenes;
+	std::vector<Scene> _scenes;
 
 	int _current_scene_index;
 
@@ -56,16 +55,18 @@ public:
 		_backgrounds["winding_road"] = olc::Renderable();
 		_backgrounds["winding_road"].Load("assets/backgrounds/winding_road.png");
 
-		const float dialogHeight = (((windowHeight * dialogBoxHeightPercent) / 100) - dialogBoxPadding);
-		const float dialogBoxStart = ((windowHeight - dialogHeight) - dialogBoxPadding);
-
-		guiLabel = new olc::QuickGUI::Label(guiManager,
-			"", { dialogBoxPadding, dialogBoxStart }, { ((float)windowWidth - (2.0f * dialogBoxPadding)), dialogHeight });
+		textLabel = new olc::QuickGUI::Label(guiManager,
+			"", { 0, 0 }, { 0, 0 });
 	
-		guiLabel->nAlign = olc::QuickGUI::Label::Alignment::Centre;
-		guiLabel->bHasBorder = true;
-		// guiLabel->bVisible = false;
-		guiLabel->bHasBackground = true;
+		textLabel->nAlign = olc::QuickGUI::Label::Alignment::Centre;
+		textLabel->bHasBorder = true;
+		// textLabel->bVisible = false;
+		textLabel->bHasBackground = true;
+		
+		speakerLabel = new olc::QuickGUI::Label(guiManager, "", { 0, 0 }, {100, 10});
+		speakerLabel->nAlign = olc::QuickGUI::Label::Alignment::Centre;
+		speakerLabel->bHasBorder = true;
+		speakerLabel->bHasBackground = true;
 
 		int scene_index = 0;
 		bool scene_found = true;
@@ -78,7 +79,8 @@ public:
 
 			if (scene_found)
 			{
-				_scenes[scene_index] = std::deque<std::unique_ptr<SceneActionInterface>>();
+				// Add a new scene
+				_scenes.push_back(Scene());
 
 				std::string content((std::istreambuf_iterator<char>(f)),
 				std::istreambuf_iterator<char>());
@@ -93,7 +95,14 @@ public:
 					{
 						std::string background_image = result.array(i).get("image").as_string();
 
-						_scenes[i].push_back(std::make_unique<SceneActionSetBackground>(&_backgrounds[background_image]));
+						_scenes[scene_index].AddBackgroundImage(&_backgrounds[background_image]);
+					}
+					else if ("dialog" == action)
+					{
+						std::string text = result.array(i).get("text").as_string();
+						std::string speaker = result.array(i).get("speaker").as_string();
+
+						_scenes[scene_index].AddSceneAction(std::make_unique<SceneActionDialog>(textLabel, text, speakerLabel, speaker));
 					}
 				}
 
@@ -104,7 +113,7 @@ public:
 
 		_current_scene_index = 0;
 
-		guiLabel->sText = "This is a test.";
+		textLabel->sText = "This is a test.";
 
 		return true;
 	}
@@ -115,21 +124,8 @@ public:
 
         Clear(olc::BLACK);
 
-		if (!_scenes[_current_scene_index].empty())
-		{
-			_scenes[_current_scene_index].front()->PerformAction(this);
-		}
+		_scenes[_current_scene_index].DrawScene(this);
         
-		// if (!_scene_actions.empty())
-		// {
-		// 	if (_scene_actions.front()->PerformAction(this))
-		// 	{
-		// 		_scene_actions.pop_front();
-		// 	}
-		// }
-
-        // DrawDecal(GetMousePos(), _mathildaDialogueSprite.Decal());
-
 		guiManager.DrawDecal(this);
 
 		return true;
