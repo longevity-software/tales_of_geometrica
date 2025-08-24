@@ -7,6 +7,13 @@
         "action": "dialog",
         "speaker": "Mathilda",
         "location": "left",
-        "text": "This is a something\nthat Mathilda said"
+        "text": "This is a something\nthat Mathilda said",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
     }
 ]

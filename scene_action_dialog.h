@@ -6,6 +6,18 @@
 #include "scene_action_interface.h"
 
 #include <string>
+#include <vector>
+#include <map>
+
+class DialogButton {
+
+    public:
+
+        olc::QuickGUI::Button* button;
+        std::string side;
+        std::string text;
+        std::string action;
+};
 
 class SceneActionDialog: public SceneActionInterface {
 
@@ -16,15 +28,24 @@ private:
     olc::QuickGUI::Label* _speaker_text_label;
     std::string _speaker;
 
+    std::vector<DialogButton> _buttons;
+
     bool _reset_action = true;
 
 public:
 
-    SceneActionDialog(olc::QuickGUI::Label * main_text_label, std::string text, olc::QuickGUI::Label * speaker_text_label, std::string speaker) {
+    SceneActionDialog(olc::QuickGUI::Label * main_text_label, 
+                        std::string text, 
+                        olc::QuickGUI::Label * speaker_text_label, 
+                        std::string speaker,
+                        std::vector<DialogButton> buttons) {
+
         this->_main_text_label = main_text_label;
         this->_text = text;
         this->_speaker_text_label = speaker_text_label;
         this->_speaker = speaker;
+        this->_buttons = buttons;
+
         this->_reset_action = true;
     }
 
@@ -58,6 +79,8 @@ public:
 
             this->_main_text_label->sText = this->_text;
             this->_speaker_text_label->sText = this->_speaker;
+
+            // TODO - populate the buttons
 
             this->_reset_action = false;
         }

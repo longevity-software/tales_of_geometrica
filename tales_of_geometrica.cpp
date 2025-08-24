@@ -27,9 +27,11 @@ protected:
 	std::map<std::string, olc::Renderable> _backgrounds;
 
 	// UI Components
-	olc::QuickGUI::Manager guiManager;
-	olc::QuickGUI::Label* textLabel = nullptr;
-	olc::QuickGUI::Label* speakerLabel = nullptr;
+	olc::QuickGUI::Manager _guiManager;
+	olc::QuickGUI::Label* _textLabel = nullptr;
+	olc::QuickGUI::Label* _speakerLabel = nullptr;
+
+	std::vector<olc::QuickGUI::Button*> _buttons;
 
 	std::vector<Scene> _scenes;
 
@@ -55,18 +57,22 @@ public:
 		_backgrounds["winding_road"] = olc::Renderable();
 		_backgrounds["winding_road"].Load("assets/backgrounds/winding_road.png");
 
-		textLabel = new olc::QuickGUI::Label(guiManager,
+		_textLabel = new olc::QuickGUI::Label(_guiManager,
 			"", { 0, 0 }, { 0, 0 });
 	
-		textLabel->nAlign = olc::QuickGUI::Label::Alignment::Centre;
-		textLabel->bHasBorder = true;
-		// textLabel->bVisible = false;
-		textLabel->bHasBackground = true;
+		_textLabel->nAlign = olc::QuickGUI::Label::Alignment::Centre;
+		_textLabel->bHasBorder = true;
+		// _textLabel->bVisible = false;
+		_textLabel->bHasBackground = true;
 		
-		speakerLabel = new olc::QuickGUI::Label(guiManager, "", { 0, 0 }, {100, 10});
-		speakerLabel->nAlign = olc::QuickGUI::Label::Alignment::Centre;
-		speakerLabel->bHasBorder = true;
-		speakerLabel->bHasBackground = true;
+		_speakerLabel = new olc::QuickGUI::Label(_guiManager, "", { 0, 0 }, {100, 10});
+		_speakerLabel->nAlign = olc::QuickGUI::Label::Alignment::Centre;
+		_speakerLabel->bHasBorder = true;
+		_speakerLabel->bHasBackground = true;
+
+		// set up 2 buttons
+		_buttons.push_back(new olc::QuickGUI::Button(_guiManager, "", {0,0}, {0,0}));
+		_buttons.push_back(new olc::QuickGUI::Button(_guiManager, "", {0,0}, {0,0}));
 
 		int scene_index = 0;
 		bool scene_found = true;
@@ -102,7 +108,26 @@ public:
 						std::string text = result.array(i).get("text").as_string();
 						std::string speaker = result.array(i).get("speaker").as_string();
 
-						_scenes[scene_index].AddSceneAction(std::make_unique<SceneActionDialog>(textLabel, text, speakerLabel, speaker));
+						json::jobject buttons_json = result.array(i).get("buttons");
+
+						std::vector<DialogButton> buttons;
+
+						for (int b = 0; b < buttons_json.size(); ++b)
+						{
+							if (b < _buttons.size())
+							{
+								DialogButton db = DialogButton();
+
+								db.button = _buttons[b];
+								db.side = buttons_json.array(b).get("side").as_string();
+								db.text = buttons_json.array(b).get("text").as_string();
+								db.action = buttons_json.array(b).get("action").as_string();
+
+								buttons.push_back(db);
+							}
+						}
+
+						_scenes[scene_index].AddSceneAction(std::make_unique<SceneActionDialog>(_textLabel, text, _speakerLabel, speaker, buttons));
 					}
 				}
 
@@ -113,20 +138,20 @@ public:
 
 		_current_scene_index = 0;
 
-		textLabel->sText = "This is a test.";
+		_textLabel->sText = "This is a test.";
 
 		return true;
 	}
 
 	bool OnUserUpdate(float fElapsedTime) override
 	{
-		guiManager.Update(this);
+		_guiManager.Update(this);
 
         Clear(olc::BLACK);
 
 		_scenes[_current_scene_index].DrawScene(this);
         
-		guiManager.DrawDecal(this);
+		_guiManager.DrawDecal(this);
 
 		return true;
 	}
