@@ -8,6 +8,9 @@ class SceneActionInterface {
 public:
     virtual bool PerformAction(olc::PixelGameEngine* pge) = 0;
     virtual void ResetAction() = 0;
+
+    virtual bool ShouldAdvanceToNextAction() = 0;
+    virtual uint32_t ShouldAdvanceToScene() = 0;
 };
 
 #endif // _SCENE_ACTION_INTERFACE_H

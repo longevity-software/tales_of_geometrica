@@ -15,5 +15,18 @@
                 "action": "next_dialog"
             }
         ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Oscar",
+        "location": "right",
+        "text": "This is a something\nthat Oscar said",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
     }
 ]

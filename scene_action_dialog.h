@@ -31,6 +31,7 @@ private:
     std::vector<DialogButton> _buttons;
 
     bool _reset_action = true;
+    bool _should_advance_to_next_dialog = false;
 
 public:
 
@@ -47,6 +48,7 @@ public:
         this->_buttons = buttons;
 
         this->_reset_action = true;
+        this->_should_advance_to_next_dialog = false;
     }
 
     void ResetAction() override {
@@ -72,22 +74,68 @@ public:
             const float speakerBoxHeightPercent = 10;
             const float speakerBoxOffset = 2;
 
-            const float speakerBoxHeight = ((SCREEN_HEIGHT * speakerBoxHeightPercent) / 100);
+            const float TEXT_ELEMENT_HEIGHT = ((SCREEN_HEIGHT * speakerBoxHeightPercent) / 100);
 
-            this->_speaker_text_label->vPos = { (dialogBoxPadding - speakerBoxOffset), (dialogBoxStart - (uint32_t)speakerBoxHeight + (2 * speakerBoxOffset)) };
-            this->_speaker_text_label->vSize = {75, speakerBoxHeight};
+            const float TEXT_ELEMENT_WIDTH = 75;
+
+            this->_speaker_text_label->vPos = { (dialogBoxPadding - speakerBoxOffset), (dialogBoxStart - (uint32_t)TEXT_ELEMENT_HEIGHT + (2 * speakerBoxOffset)) };
+            this->_speaker_text_label->vSize = {TEXT_ELEMENT_WIDTH, TEXT_ELEMENT_HEIGHT};
 
             this->_main_text_label->sText = this->_text;
             this->_speaker_text_label->sText = this->_speaker;
 
-            // TODO - populate the buttons
+            const float BUTTON_X = (SCREEN_HEIGHT - TEXT_ELEMENT_HEIGHT);
+
+            const uint32_t N_BUTTONS = this->_buttons.size();
+
+            float button_y = 0;
+
+            for (uint32_t i = 0; i < N_BUTTONS; ++i)
+            {
+                if ("right" == this->_buttons[i].side)
+                {
+                    button_y = (SCREEN_WIDTH - TEXT_ELEMENT_WIDTH - dialogBoxPadding - 3);
+                }    
+                else if ("left" == this->_buttons[i].side)
+                {
+                    button_y = (dialogBoxPadding + 3);
+                }
+                else
+                {
+                    continue;
+                }
+                
+                this->_buttons[i].button->vPos = {button_y, BUTTON_X};
+                this->_buttons[i].button->vSize = {TEXT_ELEMENT_WIDTH, TEXT_ELEMENT_HEIGHT};
+                this->_buttons[i].button->sText = this->_buttons[i].text;
+                this->_buttons[i].button->bVisible = true;
+            }
 
             this->_reset_action = false;
+        }
+
+        for (uint32_t i = 0; i < this->_buttons.size(); ++i)
+        {
+            if (this->_buttons[i].button->bPressed)
+            {
+                // The button has been pressed, so perform the action
+                if ("next_dialog" == this->_buttons[i].action)
+                {
+                    this->_should_advance_to_next_dialog = true;
+                }
+            }
         }
 
         return false;
     }
 
+    bool ShouldAdvanceToNextAction() {
+        return this->_should_advance_to_next_dialog;
+    }
+
+    uint32_t ShouldAdvanceToScene() {
+        return 0xFFFFFFFF;
+    }
 };
 
 #endif // SCENE_ACTION_SET_BACKGROUND_H

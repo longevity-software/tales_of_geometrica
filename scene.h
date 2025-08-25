@@ -43,6 +43,15 @@ class Scene {
             pge->DrawDecal(olc::vf2d(0,0), this->_background_image->Decal());
 
             this->_scene_actions[this->_scene_action_index]->PerformAction(pge);
+
+            if (this->_scene_actions[this->_scene_action_index]->ShouldAdvanceToNextAction())
+            {
+                // reset the current action
+                this->_scene_actions[this->_scene_action_index]->ResetAction();
+
+                // TODO - Add validation around this
+                this->_scene_action_index++;
+            }
         }
 
 };
