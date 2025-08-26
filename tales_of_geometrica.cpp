@@ -22,8 +22,7 @@ class TalesOfGeometrica : public olc::PixelGameEngine
 {
 protected:
 
-    olc::Renderable _mathildaDialogueSprite;
-
+	std::map<std::string, olc::Renderable> _characters;
 	std::map<std::string, olc::Renderable> _backgrounds;
 
 	// UI Components
@@ -51,18 +50,27 @@ public:
 	bool OnUserCreate() override
 	{
 		// Called once at the start, so create things here
-        _mathildaDialogueSprite.Load("assets/gfx/MathildaBaseDialogue.png");
+		_characters["Mathilda"] = olc::Renderable();
+		_characters["Mathilda"].Load("assets/characters/Mathilda.png");
+		_characters["Oscar"] = olc::Renderable();
+		_characters["Oscar"].Load("assets/characters/Oscar.png");
+		_characters["Charlie"] = olc::Renderable();
+		_characters["Charlie"].Load("assets/characters/Charlie.png");
+		_characters["Robinson"] = olc::Renderable();
+		_characters["Robinson"].Load("assets/characters/Robinson.png");
 
 		// load the backgrounds
 		_backgrounds["winding_road"] = olc::Renderable();
 		_backgrounds["winding_road"].Load("assets/backgrounds/winding_road.png");
+
+		_backgrounds["side_bridge"] = olc::Renderable();
+		_backgrounds["side_bridge"].Load("assets/backgrounds/side_bridge.png");
 
 		_textLabel = new olc::QuickGUI::Label(_guiManager,
 			"", { 0, 0 }, { 0, 0 });
 	
 		_textLabel->nAlign = olc::QuickGUI::Label::Alignment::Centre;
 		_textLabel->bHasBorder = true;
-		// _textLabel->bVisible = false;
 		_textLabel->bHasBackground = true;
 		
 		_speakerLabel = new olc::QuickGUI::Label(_guiManager, "", { 0, 0 }, {100, 10});
@@ -86,7 +94,8 @@ public:
 			if (scene_found)
 			{
 				// Add a new scene
-				_scenes.push_back(Scene());
+				const uint32_t SCENE_INDEX = _scenes.size();
+				_scenes.push_back(Scene(SCENE_INDEX));
 
 				std::string content((std::istreambuf_iterator<char>(f)),
 				std::istreambuf_iterator<char>());
@@ -107,6 +116,8 @@ public:
 					{
 						std::string text = result.array(i).get("text").as_string();
 						std::string speaker = result.array(i).get("speaker").as_string();
+						std::string speaker_side = result.array(i).get("location").as_string();
+						olc::Renderable * speaker_image = &_characters[speaker];
 
 						json::jobject buttons_json = result.array(i).get("buttons");
 
@@ -114,20 +125,31 @@ public:
 
 						for (int b = 0; b < buttons_json.size(); ++b)
 						{
-							if (b < _buttons.size())
+							DialogButton db = DialogButton();
+
+							db.side = buttons_json.array(b).get("side").as_string();
+							db.text = buttons_json.array(b).get("text").as_string();
+							db.action = buttons_json.array(b).get("action").as_string();
+
+							if ("left" == db.side)
 							{
-								DialogButton db = DialogButton();
-
-								db.button = _buttons[b];
-								db.side = buttons_json.array(b).get("side").as_string();
-								db.text = buttons_json.array(b).get("text").as_string();
-								db.action = buttons_json.array(b).get("action").as_string();
-
-								buttons.push_back(db);
+								db.button = _buttons[0];
 							}
+							else
+							{
+								db.button = _buttons[1];
+							}
+
+							buttons.push_back(db);
 						}
 
-						_scenes[scene_index].AddSceneAction(std::make_unique<SceneActionDialog>(_textLabel, text, _speakerLabel, speaker, buttons));
+						_scenes[scene_index].AddSceneAction(std::make_unique<SceneActionDialog>(_textLabel, 
+																								text, 
+																								_speakerLabel, 
+																								speaker, 
+																								speaker_side,
+																								speaker_image,
+																								buttons));
 					}
 				}
 
@@ -150,8 +172,20 @@ public:
         Clear(olc::BLACK);
 
 		_scenes[_current_scene_index].DrawScene(this);
-        
+
 		_guiManager.DrawDecal(this);
+
+		const uint32_t NEXT_SCENE = _scenes[_current_scene_index].NextScene();
+
+		if (NEXT_SCENE != _current_scene_index)
+		{
+			// reset the current scene
+			_scenes[_current_scene_index].ResetScene();
+
+			// change the scene
+			// TODO - Validate this
+			_current_scene_index = NEXT_SCENE;
+		}
 
 		return true;
 	}

@@ -19,13 +19,13 @@
     {
         "action": "dialog",
         "speaker": "Oscar",
-        "location": "right",
+        "location": "left",
         "text": "This is a something\nthat Oscar said",
         "buttons": [
             {
                 "side": "right",
-                "text": "next",
-                "action": "next_dialog"
+                "text": "group",
+                "action": "scene_1"
             }
         ]
     }

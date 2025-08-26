@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <iostream>
 
 class DialogButton {
 
@@ -17,6 +18,7 @@ class DialogButton {
         std::string side;
         std::string text;
         std::string action;
+        bool pressed;
 };
 
 class SceneActionDialog: public SceneActionInterface {
@@ -27,11 +29,16 @@ private:
     std::string _text;
     olc::QuickGUI::Label* _speaker_text_label;
     std::string _speaker;
+    std::string _speaker_side;
+    olc::Renderable * _speaker_image;
 
     std::vector<DialogButton> _buttons;
 
     bool _reset_action = true;
     bool _should_advance_to_next_dialog = false;
+
+    const uint32_t DO_NOT_CHANGE_SCENE = 0xFFFFFFFF;
+    uint32_t _next_scene_index = DO_NOT_CHANGE_SCENE;
 
 public:
 
@@ -39,13 +46,22 @@ public:
                         std::string text, 
                         olc::QuickGUI::Label * speaker_text_label, 
                         std::string speaker,
+                        std::string speaker_side,
+                        olc::Renderable * speaker_image,
                         std::vector<DialogButton> buttons) {
 
         this->_main_text_label = main_text_label;
         this->_text = text;
         this->_speaker_text_label = speaker_text_label;
         this->_speaker = speaker;
+        this->_speaker_side = speaker_side;
+        this->_speaker_image = speaker_image;
         this->_buttons = buttons;
+
+        for (uint32_t i = 0; i < this->_buttons.size(); ++i)
+        {
+            this->_buttons[i].pressed = false;
+        }
 
         this->_reset_action = true;
         this->_should_advance_to_next_dialog = false;
@@ -53,12 +69,25 @@ public:
 
     void ResetAction() override {
         this->_reset_action = true;
+
+        this->_next_scene_index = DO_NOT_CHANGE_SCENE;
+        this->_should_advance_to_next_dialog = false;
+
+        const uint32_t N_BUTTONS = this->_buttons.size();
+
+        for (uint32_t i = 0; i < N_BUTTONS; ++i)
+        {
+            this->_buttons[i].button->bVisible = false;
+            this->_buttons[i].pressed = false;
+        }
     }
 
     bool PerformAction(olc::PixelGameEngine* pge) override {
         
         if (this->_reset_action)
         {
+            std::cout << "Reset Dailog" << std::endl;
+
             const int32_t SCREEN_WIDTH = pge->ScreenWidth();
             const int32_t SCREEN_HEIGHT = pge->ScreenHeight();
             
@@ -111,18 +140,40 @@ public:
                 this->_buttons[i].button->bVisible = true;
             }
 
+            // pge->DrawDecal(olc::vf2d(0,0), this->_speaker_image->Decal());
+
+            std::cout << "Speaker IMG = " + std::to_string((uint64_t)this->_speaker_image) << std::endl;
+
             this->_reset_action = false;
         }
+
+        pge->DrawPartialDecal({0,0}, 
+            {100,100}, 
+            this->_speaker_image->Decal(), 
+            {0.0f, 0.0f},
+            {(float)this->_speaker_image->Decal()->sprite->width, (float)this->_speaker_image->Decal()->sprite->height});
 
         for (uint32_t i = 0; i < this->_buttons.size(); ++i)
         {
             if (this->_buttons[i].button->bPressed)
+            {
+                this->_buttons[i].pressed = true;
+            }
+            else if (this->_buttons[i].pressed)
             {
                 // The button has been pressed, so perform the action
                 if ("next_dialog" == this->_buttons[i].action)
                 {
                     this->_should_advance_to_next_dialog = true;
                 }
+                else if (this->_buttons[i].action.compare(0, 6, "scene_") == 0)
+                {
+                    std::cout << this->_buttons[i].action.substr(6) << std::endl;
+
+                    this->_next_scene_index = std::stoi(this->_buttons[i].action.substr(6));
+                }
+
+                this->_buttons[i].pressed = false;
             }
         }
 
@@ -134,7 +185,7 @@ public:
     }
 
     uint32_t ShouldAdvanceToScene() {
-        return 0xFFFFFFFF;
+        return this->_next_scene_index;
     }
 };
 
