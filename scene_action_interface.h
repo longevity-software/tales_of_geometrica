@@ -6,7 +6,7 @@
 class SceneActionInterface {
 
 public:
-    virtual bool PerformAction(olc::PixelGameEngine* pge) = 0;
+    virtual bool PerformAction(olc::PixelGameEngine* pge, float elapsed_time) = 0;
     virtual void ResetAction() = 0;
 
     virtual bool ShouldAdvanceToNextAction() = 0;

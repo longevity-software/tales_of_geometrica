@@ -10,7 +10,7 @@
         "text": "This is something\nthat Charlie said",
         "buttons": [
             {
-                "side": "left",
+                "side": "right",
                 "text": "next",
                 "action": "next_dialog"
             }
@@ -38,12 +38,7 @@
             {
                 "side": "right",
                 "text": "next",
-                "action": "next_dialog"
-            },
-            {
-                "side": "left",
-                "text": "back",
-                "action": "scene_0"
+                "action": "scene_2"
             }
         ]
     }

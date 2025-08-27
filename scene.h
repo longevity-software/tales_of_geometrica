@@ -59,18 +59,18 @@ class Scene {
             return this->_next_scenes_index;
         }
 
-        void DrawScene(olc::PixelGameEngine* pge) {
+        void DrawScene(olc::PixelGameEngine* pge, float elapsed_time) {
   
             if (this->_first_draw)
             {
-                std::cout << "First Draw " + std::to_string(this->_scene_action_index) + " / " + std::to_string(this->_scene_actions.size()) << std::endl;
+                std::cout << "First Draw " + std::to_string(this->_this_scenes_index) + "\n";
 
                 this->_first_draw = false;
             }   
 
             pge->DrawDecal(olc::vf2d(0,0), this->_background_image->Decal());
 
-            this->_scene_actions[this->_scene_action_index]->PerformAction(pge);
+            this->_scene_actions[this->_scene_action_index]->PerformAction(pge, elapsed_time);
 
             if (this->_scene_actions[this->_scene_action_index]->ShouldAdvanceToNextAction())
             {

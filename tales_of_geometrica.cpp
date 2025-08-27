@@ -15,6 +15,8 @@
 #include "scene.h"
 #include "scene_action_interface.h"
 #include "scene_action_dialog.h"
+#include "scene_action_shaking_dialog.h"
+#include "dialog_button.h"
 
 #include "json.h"
 
@@ -56,8 +58,8 @@ public:
 		_characters["Oscar"].Load("assets/characters/Oscar.png");
 		_characters["Charlie"] = olc::Renderable();
 		_characters["Charlie"].Load("assets/characters/Charlie.png");
-		_characters["Robinson"] = olc::Renderable();
-		_characters["Robinson"].Load("assets/characters/Robinson.png");
+		_characters["Dr Robinson"] = olc::Renderable();
+		_characters["Dr Robinson"].Load("assets/characters/Dr Robinson.png");
 
 		// load the backgrounds
 		_backgrounds["winding_road"] = olc::Renderable();
@@ -112,7 +114,7 @@ public:
 
 						_scenes[scene_index].AddBackgroundImage(&_backgrounds[background_image]);
 					}
-					else if ("dialog" == action)
+					else if (("dialog" == action) || ("shaking_dialog" == action))
 					{
 						std::string text = result.array(i).get("text").as_string();
 						std::string speaker = result.array(i).get("speaker").as_string();
@@ -143,13 +145,26 @@ public:
 							buttons.push_back(db);
 						}
 
-						_scenes[scene_index].AddSceneAction(std::make_unique<SceneActionDialog>(_textLabel, 
-																								text, 
-																								_speakerLabel, 
-																								speaker, 
-																								speaker_side,
-																								speaker_image,
-																								buttons));
+						if ("dialog" == action)
+						{
+							_scenes[scene_index].AddSceneAction(std::make_unique<SceneActionDialog>(_textLabel, 
+																									text, 
+																									_speakerLabel, 
+																									speaker, 
+																									speaker_side,
+																									speaker_image,
+																									buttons));
+						}
+						else
+						{
+							_scenes[scene_index].AddSceneAction(std::make_unique<SceneActionShakingDialog>(_textLabel, 
+																									text, 
+																									_speakerLabel, 
+																									speaker, 
+																									speaker_side,
+																									speaker_image,
+																									buttons));							
+						}
 					}
 				}
 
@@ -171,7 +186,7 @@ public:
 
         Clear(olc::BLACK);
 
-		_scenes[_current_scene_index].DrawScene(this);
+		_scenes[_current_scene_index].DrawScene(this, fElapsedTime);
 
 		_guiManager.DrawDecal(this);
 

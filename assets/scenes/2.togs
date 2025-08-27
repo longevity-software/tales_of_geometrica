@@ -1,0 +1,37 @@
+[
+    {
+        "action": "background",
+        "image": "side_bridge"
+    },
+    {
+        "action": "dialog",
+        "speaker": "Oscar",
+        "location": "right",
+        "text": "I am Oscar",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            },
+            {
+                "side": "left",
+                "text": "oscar",
+                "action": "scene_0"
+            }
+        ]
+    },
+    {
+        "action": "shaking_dialog",
+        "speaker": "Oscar",
+        "location": "right",
+        "text": "SHAKING",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    }
+]
