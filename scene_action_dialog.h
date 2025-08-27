@@ -84,18 +84,18 @@ public:
 
     bool PerformAction(olc::PixelGameEngine* pge) override {
         
+        const int32_t SCREEN_WIDTH = pge->ScreenWidth();
+        const int32_t SCREEN_HEIGHT = pge->ScreenHeight();
+
+        const float dialogBoxPadding = 5;
+        const float dialogBoxHeightPercent = 30;
+        
+        const float dialogHeight = (((SCREEN_HEIGHT * dialogBoxHeightPercent) / 100) - dialogBoxPadding);
+        const float dialogBoxStart = ((SCREEN_HEIGHT - dialogHeight) - dialogBoxPadding);
+    
         if (this->_reset_action)
         {
             std::cout << "Reset Dailog" << std::endl;
-
-            const int32_t SCREEN_WIDTH = pge->ScreenWidth();
-            const int32_t SCREEN_HEIGHT = pge->ScreenHeight();
-            
-            const float dialogBoxPadding = 5;
-            const float dialogBoxHeightPercent = 30;
-
-            const float dialogHeight = (((SCREEN_HEIGHT * dialogBoxHeightPercent) / 100) - dialogBoxPadding);
-            const float dialogBoxStart = ((SCREEN_HEIGHT - dialogHeight) - dialogBoxPadding);
 
             this->_main_text_label->vPos = { dialogBoxPadding, dialogBoxStart };
             this->_main_text_label->vSize = { ((float)SCREEN_WIDTH - (2.0f * dialogBoxPadding)), dialogHeight };
@@ -147,9 +147,13 @@ public:
             this->_reset_action = false;
         }
 
-        pge->DrawPartialDecal({0,0}, 
-            {100,100}, 
-            this->_speaker_image->Decal(), 
+        const float CHARACTER_ORIGIN = (SCREEN_WIDTH / 2);
+
+        const float CHARACTER_WIDTH = ("right" == this->_speaker_side) ? CHARACTER_ORIGIN : -CHARACTER_ORIGIN;
+
+        pge->DrawPartialDecal({CHARACTER_ORIGIN,0},        // Position
+            {CHARACTER_WIDTH,dialogBoxStart},              // Size
+            this->_speaker_image->Decal(),
             {0.0f, 0.0f},
             {(float)this->_speaker_image->Decal()->sprite->width, (float)this->_speaker_image->Decal()->sprite->height});
 
