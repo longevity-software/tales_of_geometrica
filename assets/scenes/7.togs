@@ -1,0 +1,136 @@
+[
+    {
+        "action": "background",
+        "image": "finished_house"
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "Finally, with the nets folded\nand joined.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "The strange house stood completed.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "shaking_dialog",
+        "speaker": "Oscar",
+        "location": "left",
+        "text": "It worked!!",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Oscar",
+        "location": "left",
+        "text": "The 2D pieces folded\nperfectly into a 3D house.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Mathilda",
+        "location": "right",
+        "text": "We turned the\nriddle into a reality.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Charlie",
+        "location": "left",
+        "text": "Guess that makes us\nlegends now.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "From that day forward the\n three archiects were known\nacross the kingdom.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "for solving the mystery\nof the 2D to 3D house.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "With a little help\nfrom Mr Robinson.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "THE END.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "scene_0"
+            }
+        ]
+    }
+]

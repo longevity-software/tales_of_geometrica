@@ -1,0 +1,71 @@
+[
+    {
+        "action": "background",
+        "image": "architects_office"
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "The architects experimented\nwith different shapes.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "Each folding nets\nand testing how they\nfit together.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Charlie",
+        "location": "right",
+        "text": "This cube is solid\nIt can be the walls.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Mathilda",
+        "location": "left",
+        "text": "And these triangular prisms,\nperfect for the roof.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "Piece by piece,\nthe architects built up\nthe design.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "scene_7"
+            }
+        ]
+    }
+]
