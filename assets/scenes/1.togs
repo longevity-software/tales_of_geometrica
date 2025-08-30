@@ -1,13 +1,13 @@
 [
     {
         "action": "background",
-        "image": "side_bridge"
+        "image": "winding_road"
     },
     {
         "action": "dialog",
         "speaker": "Charlie",
         "location": "left",
-        "text": "This is something\nthat Charlie said",
+        "text": "Hi I am Charlie",
         "buttons": [
             {
                 "side": "right",
@@ -18,22 +18,9 @@
     },
     {
         "action": "dialog",
-        "speaker": "Mathilda",
+        "speaker": "Oscar",
         "location": "right",
-        "text": "This is something else\nthat Mathilda said",
-        "buttons": [
-            {
-                "side": "right",
-                "text": "next",
-                "action": "next_dialog"
-            }
-        ]
-    },
-    {
-        "action": "dialog",
-        "speaker": "Mathilda",
-        "location": "right",
-        "text": "Before the end",
+        "text": "And I am Osc",
         "buttons": [
             {
                 "side": "right",

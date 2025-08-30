@@ -5,32 +5,14 @@
     },
     {
         "action": "dialog",
-        "speaker": "Oscar",
-        "location": "right",
-        "text": "I am Oscar",
+        "speaker": "Mathilda",
+        "location": "left",
+        "text": "I am Mathilda",
         "buttons": [
             {
                 "side": "right",
-                "text": "next",
-                "action": "next_dialog"
-            },
-            {
-                "side": "left",
-                "text": "oscar",
+                "text": "End",
                 "action": "scene_0"
-            }
-        ]
-    },
-    {
-        "action": "shaking_dialog",
-        "speaker": "Oscar",
-        "location": "right",
-        "text": "SHAKING",
-        "buttons": [
-            {
-                "side": "right",
-                "text": "next",
-                "action": "next_dialog"
             }
         ]
     }

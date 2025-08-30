@@ -16,6 +16,7 @@
 #include "scene_action_interface.h"
 #include "scene_action_dialog.h"
 #include "scene_action_shaking_dialog.h"
+#include "scene_action_menu.h"
 #include "dialog_button.h"
 
 #include "json.h"
@@ -73,16 +74,23 @@ public:
 	
 		_textLabel->nAlign = olc::QuickGUI::Label::Alignment::Centre;
 		_textLabel->bHasBorder = true;
+		_textLabel->bVisible = false;
 		_textLabel->bHasBackground = true;
 		
 		_speakerLabel = new olc::QuickGUI::Label(_guiManager, "", { 0, 0 }, {100, 10});
 		_speakerLabel->nAlign = olc::QuickGUI::Label::Alignment::Centre;
 		_speakerLabel->bHasBorder = true;
+		_speakerLabel->bVisible = false;
 		_speakerLabel->bHasBackground = true;
 
 		// set up 2 buttons
 		_buttons.push_back(new olc::QuickGUI::Button(_guiManager, "", {0,0}, {0,0}));
 		_buttons.push_back(new olc::QuickGUI::Button(_guiManager, "", {0,0}, {0,0}));
+
+		for (uint32_t i = 0; i < _buttons.size(); ++i)
+		{
+			_buttons[i]->bVisible = false;
+		}
 
 		int scene_index = 0;
 		bool scene_found = true;
@@ -113,6 +121,24 @@ public:
 						std::string background_image = result.array(i).get("image").as_string();
 
 						_scenes[scene_index].AddBackgroundImage(&_backgrounds[background_image]);
+					}
+					if ("menu" == action)
+					{
+						json::jobject buttons_json = result.array(i).get("buttons");
+
+						std::vector<MenuButton> buttons;
+
+						for (int b = 0; b < buttons_json.size(); ++b)
+						{
+							MenuButton mb = MenuButton();
+
+							mb.text = buttons_json.array(b).get("text").as_string();
+							mb.action = buttons_json.array(b).get("action").as_string();
+							mb.button = _buttons[0];
+							buttons.push_back(mb);
+						}
+
+						_scenes[scene_index].AddSceneAction(std::make_unique<SceneActionMenu>(buttons));							
 					}
 					else if (("dialog" == action) || ("shaking_dialog" == action))
 					{

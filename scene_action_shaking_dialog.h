@@ -77,6 +77,9 @@ public:
             this->_buttons[i].button->bVisible = false;
             this->_buttons[i].pressed = false;
         }
+        
+        this->_main_text_label->bVisible = false;
+        this->_speaker_text_label->bVisible = false;
     }
 
     bool PerformAction(olc::PixelGameEngine* pge, float elapsed_time) override {
@@ -95,6 +98,9 @@ public:
     
         if (this->_reset_action)
         {
+            this->_main_text_label->bVisible = true;
+            this->_speaker_text_label->bVisible = true;
+
             this->_main_text_label->vPos = { dialogBoxPadding, dialogBoxStart };
             this->_main_text_label->vSize = { ((float)SCREEN_WIDTH - (2.0f * dialogBoxPadding)), dialogHeight };
 

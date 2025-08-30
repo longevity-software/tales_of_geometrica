@@ -12,7 +12,7 @@ class Scene {
 
     private:
 
-        olc::Renderable * _background_image;
+        olc::Renderable * _background_image = nullptr;
 
         std::vector<std::unique_ptr<SceneActionInterface>> _scene_actions = std::vector<std::unique_ptr<SceneActionInterface>>();
 
@@ -68,8 +68,10 @@ class Scene {
                 this->_first_draw = false;
             }   
 
-            pge->DrawDecal(olc::vf2d(0,0), this->_background_image->Decal());
-
+            if (nullptr != this->_background_image) {
+                pge->DrawDecal(olc::vf2d(0,0), this->_background_image->Decal());
+            }
+            
             this->_scene_actions[this->_scene_action_index]->PerformAction(pge, elapsed_time);
 
             if (this->_scene_actions[this->_scene_action_index]->ShouldAdvanceToNextAction())
