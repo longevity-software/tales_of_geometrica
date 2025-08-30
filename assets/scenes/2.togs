@@ -1,18 +1,200 @@
 [
     {
         "action": "background",
-        "image": "side_bridge"
+        "image": "architects_office"
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "The three architects\ndecided to experiment\non their own.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "They grabbed paper, pencils\nand scissors.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "Cutting out random squares,\ntriangles and rectangles.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Oscar",
+        "location": "left",
+        "text": "Uh...\nis this supposed to be a box?",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Oscar",
+        "location": "left",
+        "text": "Because it looks more like...\na squashed sandwich.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "Mathilda tried folding\na strip of paper.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
     },
     {
         "action": "dialog",
         "speaker": "Mathilda",
-        "location": "left",
-        "text": "I am Mathilda",
+        "location": "right",
+        "text": "I thought this would\nturn into a wall.",
         "buttons": [
             {
                 "side": "right",
-                "text": "End",
-                "action": "scene_0"
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "Charlie laughed\nas his triangle collapsed.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Charlie",
+        "location": "left",
+        "text": "Mine's even worse\nIt's just...\nStill a triangle",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Charlie",
+        "location": "left",
+        "text": "How is this\nsupposed to be a roof?",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "The table quickly became a mess\n of half-folded shapes\nand scraps of paper",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Oscar",
+        "location": "right",
+        "text": "This is hopeless.\nIt's impossible",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Mathilda",
+        "location": "right",
+        "text": "There has to be a trick.\nWe just don't know it yet.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "They looked at each other,\nthen all said at the same time:",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "\"Mr Robinson\"",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "scene_3"
             }
         ]
     }

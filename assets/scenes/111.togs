@@ -1,0 +1,32 @@
+[
+    {
+        "action": "background",
+        "image": "winding_road"
+    },
+    {
+        "action": "dialog",
+        "speaker": "Charlie",
+        "location": "left",
+        "text": "Hi I am Charlie",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Oscar",
+        "location": "right",
+        "text": "And I am Osc",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "scene_2"
+            }
+        ]
+    }
+]

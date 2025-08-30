@@ -1,13 +1,78 @@
 [
     {
         "action": "background",
-        "image": "winding_road"
+        "image": "architects_office"
     },
     {
         "action": "dialog",
-        "speaker": "Charlie",
+        "speaker": "Narator",
         "location": "left",
-        "text": "Hi I am Charlie",
+        "text": "There were three Architects:\nOscar, Mathilda and Charlie.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "They were experts in\ncreating buildings.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "But one day,\nthey faced a peculiar challenge.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "A mysterious request\nfor a house that could\ntransform from 2D to 3D.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "The three architects were puzzled...",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Mathilda",
+        "location": "left",
+        "text": "How can we make a flat shape\nturn into a house?",
         "buttons": [
             {
                 "side": "right",
@@ -20,11 +85,55 @@
         "action": "dialog",
         "speaker": "Oscar",
         "location": "right",
-        "text": "And I am Osc",
+        "text": "What does this even mean?\nHow can we make a flat\nshape into a house?",
         "buttons": [
             {
                 "side": "right",
                 "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Mathilda",
+        "location": "left",
+        "text": "It sounds impossible...\nunless...\nmaybe it's a riddle?",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Charlie",
+        "location": "right",
+        "text": "Impossible?\nThat just means its gonan be fun.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "How should the three\narchitects proceed?",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "Ask for help",
+                "action": "scene_3"
+            },
+            {
+                "side": "left",
+                "text": "Experiment",
                 "action": "scene_2"
             }
         ]

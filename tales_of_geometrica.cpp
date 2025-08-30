@@ -63,12 +63,18 @@ public:
 		_characters["Dr Robinson"].Load("assets/characters/Dr Robinson.png");
 
 		// load the backgrounds
-		_backgrounds["winding_road"] = olc::Renderable();
-		_backgrounds["winding_road"].Load("assets/backgrounds/winding_road.png");
+		_backgrounds["title_screen"] = olc::Renderable();
+		_backgrounds["title_screen"].Load("assets/backgrounds/title_screen.png");
 
-		_backgrounds["side_bridge"] = olc::Renderable();
-		_backgrounds["side_bridge"].Load("assets/backgrounds/side_bridge.png");
+		_backgrounds["architects_office"] = olc::Renderable();
+		_backgrounds["architects_office"].Load("assets/backgrounds/winding_road.png");
 
+		_backgrounds["robinsons_office"] = olc::Renderable();
+		_backgrounds["robinsons_office"].Load("assets/backgrounds/side_bridge.png");
+
+		_backgrounds["finished_house"] = olc::Renderable();
+		_backgrounds["finished_house"].Load("assets/backgrounds/centre_bridge.png");
+		
 		_textLabel = new olc::QuickGUI::Label(_guiManager,
 			"", { 0, 0 }, { 0, 0 });
 	
@@ -145,7 +151,7 @@ public:
 						std::string text = result.array(i).get("text").as_string();
 						std::string speaker = result.array(i).get("speaker").as_string();
 						std::string speaker_side = result.array(i).get("location").as_string();
-						olc::Renderable * speaker_image = &_characters[speaker];
+						olc::Renderable * speaker_image = ("Narator" == speaker) ? nullptr : &_characters[speaker];
 
 						json::jobject buttons_json = result.array(i).get("buttons");
 

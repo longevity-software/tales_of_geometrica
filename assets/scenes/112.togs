@@ -1,0 +1,19 @@
+[
+    {
+        "action": "background",
+        "image": "side_bridge"
+    },
+    {
+        "action": "dialog",
+        "speaker": "Mathilda",
+        "location": "left",
+        "text": "I am Mathilda",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "End",
+                "action": "scene_0"
+            }
+        ]
+    }
+]

@@ -68,7 +68,7 @@ public:
             const uint32_t BUTTON_WIDTH = 100;
             const uint32_t BUTTON_HEIGHT = 30;
             const uint32_t BUTTON_SPACING = 20;
-            const uint32_t FIRST_BUTTON_Y = 30;
+            const uint32_t FIRST_BUTTON_Y = 120;
             const float BUTTON_X = (float)((SCREEN_WIDTH / 2) - (BUTTON_WIDTH / 2));
             const uint32_t N_BUTTONS = this->_buttons.size();
 

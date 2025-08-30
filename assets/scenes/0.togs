@@ -1,5 +1,9 @@
 [
     {
+        "action": "background",
+        "image": "title_screen"
+    },
+    {
         "action": "menu",
         "buttons": [
             {

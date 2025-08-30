@@ -89,7 +89,7 @@ public:
         if (this->_reset_action)
         {
             this->_main_text_label->bVisible = true;
-            this->_speaker_text_label->bVisible = true;
+            this->_speaker_text_label->bVisible = ("Narator" != this->_speaker);
 
             this->_main_text_label->vPos = { dialogBoxPadding, dialogBoxStart };
             this->_main_text_label->vSize = { ((float)SCREEN_WIDTH - (2.0f * dialogBoxPadding)), dialogHeight };
@@ -141,11 +141,13 @@ public:
 
         const float CHARACTER_WIDTH = ("right" == this->_speaker_side) ? CHARACTER_ORIGIN : -CHARACTER_ORIGIN;
 
-        pge->DrawPartialDecal({CHARACTER_ORIGIN,0},        // Position
-            {CHARACTER_WIDTH,dialogBoxStart},              // Size
-            this->_speaker_image->Decal(),
-            {0.0f, 0.0f},
-            {(float)this->_speaker_image->Decal()->sprite->width, (float)this->_speaker_image->Decal()->sprite->height});
+        if (nullptr != this->_speaker_image) {
+            pge->DrawPartialDecal({CHARACTER_ORIGIN,0},        // Position
+                {CHARACTER_WIDTH,dialogBoxStart},              // Size
+                this->_speaker_image->Decal(),
+                {0.0f, 0.0f},
+                {(float)this->_speaker_image->Decal()->sprite->width, (float)this->_speaker_image->Decal()->sprite->height});
+        }
 
         for (uint32_t i = 0; i < this->_buttons.size(); ++i)
         {

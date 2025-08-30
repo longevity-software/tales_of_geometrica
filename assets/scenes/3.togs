@@ -1,0 +1,63 @@
+[
+    {
+        "action": "background",
+        "image": "robinsons_office"
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "Mr Robinson was the\ntowns geometry expert.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "He welcomed the architects\nwith a warm smile.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Narator",
+        "location": "left",
+        "text": "As they started explaining\nthe strange task.",
+        "buttons": [
+            {
+                "side": "right",
+                "text": "next",
+                "action": "next_dialog"
+            }
+        ]
+    },
+    {
+        "action": "dialog",
+        "speaker": "Dr Robinson",
+        "location": "left",
+        "text": "Interesting...\nWhat would you\nlike to start with first?",
+        "buttons": [
+            {
+                "side": "left",
+                "text": "Walls",
+                "action": "scene_4"
+            },
+            {
+                "side": "right",
+                "text": "Roof",
+                "action": "scene_5"
+            }
+        ]
+    }
+]

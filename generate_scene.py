@@ -21,11 +21,11 @@ else:  # Unix (Linux / macOS)
         return ch
 
 # -------- Options --------
-SPEAKERS = ["Mathilda", "Oscar", "Charlie", "Super Shapeman", "Dr Robinson"]
+SPEAKERS = ["Mathilda", "Oscar", "Charlie", "Dr Robinson", "Narator"]
 LOCATIONS = ["left", "right"]
 BUTTON_SIDES = ["right", "left"]
 BUTTON_ACTIONS = ["next_dialog", "scene_x"]
-BACKGROUND_IMAGES = ["winding_road", "side_bridge"]
+BACKGROUND_IMAGES = ["architects_office", "robinsons_office", "finished_house"]
 MAIN_ACTIONS = ["finish", "background", "dialog", "shaking_dialog", "menu", "remove_last"]
 
 # -------- Helpers --------
